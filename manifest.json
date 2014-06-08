@@ -1,0 +1,20 @@
+{
+    "manifest_version": 2,
+
+    "name": "Chrome Stats to open.sen.se",
+    "description": "This extension counts how many tabs you have open and sends it to your open.sen.se account.",
+    "version": "1.0",
+
+    "permissions": [
+        "alarms",
+        "*://api.sen.se/*",
+        "storage"
+    ],
+
+    "options_page": "options.html",
+
+    "background": {
+        "scripts": ["jquery-2.1.0.min.js", "recorder.js"],
+        "persistent": false
+    }
+}
