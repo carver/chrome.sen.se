@@ -1,8 +1,8 @@
 
 //TODO trigger stat check on tabs.onCreated and tabs.onRemoved
 
-if (!localStorage.records) {
-    localStorage.records = 0;
+if (!localStorage.lastSlowRecord) {
+    localStorage.lastSlowRecord = 0;
 }
 
 function startRepeater() {
@@ -34,13 +34,13 @@ function record() {
 function checkStats(api_key, fast_tabs, slow_tabs) {
     var stat = chrome.tabs.query({}, function (tabs) {
         recordTabCount(api_key, fast_tabs, slow_tabs, tabs.length);
-        localStorage.records++;
     });
 }
 
 function recordTabCount(api_key, fast_tabs, slow_tabs, stat) {
-    if (localStorage.records % 4 == 0) {
+    if (Date.now() - localStorage.lastSlowRecord > 59 * 60 * 1000) {
         postStat(api_key, slow_tabs, stat);
+        localStorage.lastSlowRecord = Date.now();
     }
     postStat(api_key, fast_tabs, stat);
 }
