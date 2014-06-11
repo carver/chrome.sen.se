@@ -1,6 +1,8 @@
 
 //TODO trigger stat check on tabs.onCreated and tabs.onRemoved
 
+slow_count_gap_ms = 4 * 60 * 60 * 1000;
+
 if (!localStorage.lastSlowRecord) {
     localStorage.lastSlowRecord = 0;
 }
@@ -38,7 +40,7 @@ function checkStats(api_key, fast_tabs, slow_tabs) {
 }
 
 function recordTabCount(api_key, fast_tabs, slow_tabs, stat) {
-    if (Date.now() - localStorage.lastSlowRecord > 59 * 60 * 1000) {
+    if (Date.now() - localStorage.lastSlowRecord > slow_count_gap_ms - 60 * 1000) {
         postStat(api_key, slow_tabs, stat);
         localStorage.lastSlowRecord = Date.now();
     }
