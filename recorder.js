@@ -35,7 +35,9 @@ function record() {
 
 function checkStats(api_key, fast_tabs, slow_tabs) {
     var stat = chrome.tabs.query({}, function (tabs) {
-        recordTabCount(api_key, fast_tabs, slow_tabs, tabs.length);
+        if(tabs.length > 1) { //exclude scenario where chrome crashes, and hasn't restored yet
+            recordTabCount(api_key, fast_tabs, slow_tabs, tabs.length);
+        }
     });
 }
 
