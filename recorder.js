@@ -8,9 +8,11 @@ if (!localStorage.lastSlowRecord) {
 }
 
 function startRepeater() {
-    chrome.alarms.getAll(function (alarms) {
-        if (!alarms.length) {
-            chrome.alarms.create("stat checker", {delayInMinutes: 0, periodInMinutes: 15});
+    var statAlarm = "stat checker";
+    chrome.alarms.get(statAlarm, function (alarm) {
+        if (!alarm) {
+            chrome.alarms.create(statAlarm, {delayInMinutes: 15, periodInMinutes: 15});
+            record();
         }
     });
 }
