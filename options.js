@@ -7,9 +7,13 @@ function save_options() {
 function save_local() {
   var slow_tab_count_feed = document.getElementById('slow_tab_count_feed').value;
   var fast_tab_count_feed = document.getElementById('fast_tab_count_feed').value;
+  var slow_email_count_feed = document.getElementById('slow_email_count_feed').value;
+  var fast_email_count_feed = document.getElementById('fast_email_count_feed').value;
   chrome.storage.local.set({
     slow_tab_count_feed: slow_tab_count_feed,
-    fast_tab_count_feed: fast_tab_count_feed
+    fast_tab_count_feed: fast_tab_count_feed,
+    slow_email_count_feed: slow_email_count_feed,
+    fast_email_count_feed: fast_email_count_feed
   }, function() {
     var status = document.getElementById('status');
     status.textContent = status.textContent + 'Feed IDs saved. ';
@@ -44,10 +48,14 @@ function restore_options() {
 function restore_local() {
   chrome.storage.local.get({
     slow_tab_count_feed: '',
-    fast_tab_count_feed: ''
+    fast_tab_count_feed: '',
+    slow_email_count_feed: '',
+    fast_email_count_feed: ''
   }, function(items) {
     document.getElementById('fast_tab_count_feed').value = items.fast_tab_count_feed;
     document.getElementById('slow_tab_count_feed').value = items.slow_tab_count_feed;
+    document.getElementById('fast_email_count_feed').value = items.fast_email_count_feed;
+    document.getElementById('slow_email_count_feed').value = items.slow_email_count_feed;
   });
 }
 
